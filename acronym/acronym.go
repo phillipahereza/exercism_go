@@ -5,19 +5,28 @@
 // https://golang.org/doc/effective_go.html#commentary
 package acronym
 
-import ("strings"
-"bytes"
+import (
+	"fmt"
+	"strings"
+	"regexp"
 )
+
+
 
 // Abbreviate should have a comment documenting it.
 func Abbreviate(s string) string {
-	s = strings.ToUpper(s)
-	var words = []string
-	words = strings.Split(s, " ")
-	var abbr bytes.Buffer
-	for _, word := range(words) {
-		word[0]
+	
+	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
+
+	processedString := reg.ReplaceAllString(s, " ")
+	fmt.Println(processedString)
+
+	words := strings.Split(processedString, " ")
+	abbr := make([]string, len(words))
+
+	for _, word := range words {
+		abbr = append(abbr, string([]rune(word)[0]))
 	}
 
-	return abbr.String()
+	return strings.ToUpper(strings.Join(abbr, ""))
 }

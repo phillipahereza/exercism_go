@@ -1,21 +1,24 @@
+// Package isogram provides a utility for determining
+// if a word or phrase is an isogram.
 package isogram
 
 import (
-	"regexp"
-	"strings"
+	"unicode"
 )
 
-// IsIsogram return true if string is isogram
+// IsIsogram returns true if string is isogram.
 func IsIsogram(s string) bool {
-	
-	freq := make(map[rune]rune)
-	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
-
-	processedString := reg.ReplaceAllString(strings.ToLower(s), "")
-	for _, r := range processedString {
-		freq[r] = r
+	seen := map[rune]bool{}
+	for _, char := range s {
+		char := unicode.ToLower(char)
+		if unicode.IsLetter(char) {
+			if _, ok := seen[char]; ok {
+				return false
+			}
+			seen[char] = true
+		}
 	}
 
-	return len(processedString) == len(freq)
-
+	return true
+	
 }

@@ -6,7 +6,6 @@
 package acronym
 
 import (
-	"fmt"
 	"strings"
 	"regexp"
 )
@@ -19,7 +18,6 @@ func Abbreviate(s string) string {
 	reg, _ := regexp.Compile("[^a-zA-Z0-9]+")
 
 	processedString := reg.ReplaceAllString(s, " ")
-	fmt.Println(processedString)
 
 	words := strings.Split(processedString, " ")
 	abbr := make([]string, len(words))
